@@ -56,13 +56,18 @@ leaderboard2(Request) :-
         http_parameters(Request,
                         [ id(ID, [ optional(false) ])
                         ]),
-	(   start_stop(ID,start,_)
-	->  calculate_stop_time(ID,Score,Time)
-	;   calculate_start_time(ID,Score,Time)
+	(   name(ID,Name),
+	    (   start_stop(ID,start,_)
+	    ->  calculate_stop_time(ID,Score,_Time)
+ 	    ;   calculate_start_time(ID,Score,_Time)
+	    ),
 	),
-	findall(ScoreX-NameX,
+        findall(ScoreX-NameX,
 	        (   name(IDX,NameX),
-	            cur_score(IDX,ScoreX,_TimeX)
+	            (   start_stop(IDX,start,_)
+	            ->  calculate_stop_time(IDX,ScoreX,_TimeX)
+ 	            ;   calculate_start_time(IDX,ScoreX,_TimeX)
+	            ),
 		),
                 List),
 	keysort(List,Ranking),
@@ -70,7 +75,8 @@ leaderboard2(Request) :-
 	reply_html_page([],
         		[ title('Meatspace leaderboard')
 			],
-	                [ table([ caption('Meatspace leaderboard'),
+	                [ h1(['Your score is ', Score]),
+                          table([ caption('Meatspace leaderboard'),
                                   \header2
 			        | \leaderboard2(Leaderboard)
 			        ])]).
