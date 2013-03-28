@@ -66,8 +66,7 @@ leaderboard2(Request) :-
 		),
                 List),
 	keysort(List,Ranking),
-	reverse(Ranking,Rankingrev),
-	pairs_values(Rankingrev,Leaderboard),
+	reverse(Ranking,Leaderboard),
 	reply_html_page([],
         		[ title('Meatspace leaderboard')
 			],
@@ -83,7 +82,7 @@ header2 -->
                  ]))).
 
 leaderboard2([]) --> [].
-leaderboard2([Name-Score|T]) -->
+leaderboard2([Score-Name|T]) -->
 	html(tbody([tr([th([scope=row],[Name]),td(Score)])])),
 	leaderboard2(T).
 
