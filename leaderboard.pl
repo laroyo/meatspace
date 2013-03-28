@@ -73,7 +73,8 @@ leaderboard2(Request) :-
 	keysort(List,Ranking),
 	reverse(Ranking,Leaderboard),
 	reply_html_page([],
-        		[ title('Meatspace leaderboard')
+        		[ meta([http-equiv=refresh, content=2]),
+                          title('Meatspace leaderboard')
 			],
 	                [ h1(['Your score is ', Score]),
                           table([ caption('Meatspace leaderboard'),
