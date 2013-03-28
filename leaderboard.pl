@@ -144,7 +144,7 @@ process(json(List)) :-
 
 process(json(List)) :-
 	member(action=update,List), member(id=ID,List), member(latitude=Latitude,List), member(longitude=Longitude,List),
-	retractall_update(ID,_),
+	retractall_update(ID,_,_),
 	assert_update(ID,Latitude,Longitude).
 
 /*
