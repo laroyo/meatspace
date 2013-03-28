@@ -67,7 +67,7 @@ leaderboard2(Request) :-
 	            (   start_stop(IDX,start,_)
 	            ->  calculate_stop_time(IDX,ScoreX,_TimeX)
  	            ;   calculate_start_time(IDX,ScoreX,_TimeX)
-	            ),
+	            )
 		),
                 List),
 	keysort(List,Ranking),
