@@ -135,7 +135,8 @@ leaderboard([score(User,_Pass,Score,Kills,Died,Highscore,_Lat,_Long,Ping,Offline
 meatspace(Request) :-
 	http_read_json(Request, JSONIn),
 	json_to_prolog(JSONIn, Term),
-	process(Term).
+	process(Term),
+        reply_json(json([ok=true])).
 
 process(json(List)) :-
 	member(action=name,List), member(id=ID,List), member(name=Name,List),
