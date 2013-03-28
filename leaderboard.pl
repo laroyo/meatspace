@@ -137,11 +137,13 @@ meatspace(Request) :-
 	json_to_prolog(JSONIn, Term),
 	process(Term).
 
-process(json([ id=ID, action=name, name=Name ])) :-
+process(json(List)) :-
+	member(action=name,List), member(id=ID,List), member(name=Name,List),
 	retractall_name(ID,_),
 	assert_name(ID,Name).
 
-process(json([ id=ID, action=update, latitude=Latitude, longitude=Longitude ])) :-
+process(json(List)) :-
+	member(action=update,List), member(id=ID,List), member(latitude=Latitude,List), member(longitude=Longitude,List),
 	retractall_update(ID,_),
 	assert_update(ID,Latitude,Longitude).
 
@@ -152,14 +154,16 @@ process(json([ id=ID, action=update, latitude=Latitude, longitude=Longitude ])) 
 :- persistent start_stop(id:atom, startstop:atom).
 :- persistent cur_score(id:atom, score:integer, time:integer).
 */
-process(json([ id=ID, action=start ])) :-
+process(json(List)) :- 
+	member(action=start,List), member(id=ID,List),
 	calculate_start_time(ID,Score,Time),
 	retractall_cur_score(ID,_,_),
 	assert_cur_score(ID,Score,Time),
 	retractall_start_stop(ID,_,_),
 	assert_start_stop(ID,start,Time).
 
-process(json([ id=ID, action=stop])) :-
+process(json(List)) :- 
+	member(action=stop,List), member(id=ID,List),
 	calculate_stop_time(ID,Score,Time),
 	retractall_cur_score(ID,_,_),
 	assert_cur_score(ID,Score,Time),
