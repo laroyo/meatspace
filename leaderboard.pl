@@ -60,7 +60,7 @@ leaderboard2(Request) :-
 	    (   start_stop(ID,start,_)
 	    ->  calculate_stop_time(ID,Score,_Time)
  	    ;   calculate_start_time(ID,Score,_Time)
-	    ),
+	    )
 	),
         findall(ScoreX-NameX,
 	        (   name(IDX,NameX),
