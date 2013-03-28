@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">MeatSpace</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Welcome to meatspace!</string>
-
+    <string name="action_settings">Change name</string>
+    <string name="hello_world">Welcome to MeatSpace!</string>
+	<string name="timer">Timer will appear here</string>
+    
 </resources>
